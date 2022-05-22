@@ -2,6 +2,7 @@
 import { Fragment, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Row,
   Col,
@@ -34,7 +35,10 @@ import NavbarDefaultRoutes from 'routes/marketing/NavbarDefault'
 import NotificationList from 'data/Notification'
 import NavDropdownMain from 'layouts/marketing/navbars/NavDropdownMain'
 
+import { clearStore } from './../../../features/user/userSlice'
+
 const NavbarDefault = ({ headerstyle, login }) => {
+  const dispatch = useDispatch()
   const isDesktop = useMediaQuery({
     query: '(min-width: 1224px)',
   })
@@ -177,7 +181,10 @@ const NavbarDefault = ({ headerstyle, login }) => {
               <i className='fe fe-settings me-2'></i> 設定
             </Dropdown.Item>
             <Dropdown.Divider />
-            <Dropdown.Item className='mb-3'>
+            <Dropdown.Item
+              className='mb-3'
+              onClick={() => dispatch(clearStore('登出中...'))}
+            >
               <i className='fe fe-power me-2'></i> 登出
             </Dropdown.Item>
           </Dropdown.Menu>
@@ -199,7 +206,9 @@ const NavbarDefault = ({ headerstyle, login }) => {
         <Container fluid className='px-0 ps-2'>
           <Navbar.Brand as={Link} to='/'>
             {/* <Image src={Logo} alt='' /> */}
-            <h3 className='test001'>ONO</h3>
+            <h3 className='test001'>
+              New ONO[{process.env.NODE_ENV}/{process.env.REACT_APP_VERSION}]
+            </h3>
           </Navbar.Brand>
           <div
             className={`navbar-nav navbar-right-wrap ms-auto d-lg-none nav-top-wrap ${
@@ -288,7 +297,7 @@ const NavbarDefault = ({ headerstyle, login }) => {
               >
                 <Nav.Link
                   as={Link}
-                  to='#'
+                  to='/auth/sign-in'
                   bsPrefix='btn'
                   className='btn btn-white shadow-sm me-2'
                 >
@@ -296,7 +305,7 @@ const NavbarDefault = ({ headerstyle, login }) => {
                 </Nav.Link>
                 <Nav.Link
                   as={Link}
-                  to='#'
+                  to='/auth/sign-up'
                   bsPrefix='btn'
                   className='btn btn-primary shadow-sm'
                 >
