@@ -1,5 +1,6 @@
 // import node module libraries
 import React, { Fragment, useEffect } from 'react'
+import { Outlet } from 'react-router-dom'
 
 // import layouts
 import NavbarDefault from 'layouts/marketing/navbars/NavbarDefault'
@@ -13,7 +14,7 @@ const DefaultLayout = (props) => {
   return (
     <Fragment>
       <NavbarDefault login />
-      {props.children}
+      <Outlet />
       <Footer />
     </Fragment>
   )

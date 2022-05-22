@@ -106,7 +106,7 @@ import SignUp from 'components/dashboard/authentication/SignUp'
 
 /* ----------------------------------- */
 /* IMPORTS FOR MARKETING PAGES - START */
-// import DefaultLayout from 'layouts/marketing/DefaultLayout'
+import DefaultLayout from 'layouts/marketing/DefaultLayout'
 // import LayoutFooterLinks from 'layouts/marketing/LayoutFooterLinks'
 // import BlankLayout from 'layouts/marketing/BlankLayout'
 // import NotFound from 'layouts/marketing/NotFound'
@@ -159,7 +159,7 @@ import LandingCourses from 'components/marketing/landings/landing-courses/Landin
 // import LandingSass from 'components/marketing/landings/landing-sass/LandingSass' // new v1.1.0
 
 // Instructor Dashboard Pages
-// import InstructorDashboard from 'components/marketing/instructor/Dashboard'
+import InstructorDashboard from 'components/marketing/instructor/Dashboard'
 // import InstructorMyCourses from 'components/marketing/instructor/MyCourses'
 // import InstructorReviews from 'components/marketing/instructor/Reviews'
 // import Earnings from 'components/marketing/instructor/Earnings'
@@ -188,44 +188,26 @@ import LandingCourses from 'components/marketing/landings/landing-courses/Landin
 /* IMPORTS FOR MARKETING PAGES - END */
 /* --------------------------------- */
 
-const AppRoute = ({ component: Component, layout: Layout, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) => {
-      console.log('** HOC **')
-      return (
-        <Layout>
-          <Component {...props}></Component>
-        </Layout>
-      )
-    }}
-  ></Route>
-)
-
-const MailRoutes = ({ component: Component, layout: Layout, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) => (
-      <Layout>
-        <MailProvider>
-          <Component {...props}></Component>
-        </MailProvider>
-      </Layout>
-    )}
-  ></Route>
-)
-
 function AllRoutes() {
   return (
     <Routes>
+      {/* Landing Page */}
       <Route path='landing' element={<LandingCourses />} />
+
+      {/* 登入、註冊 */}
       <Route path='/auth' element={<AuthLayout />}>
         <Route index element={<SignIn />} />
         <Route path='sign-in' element={<SignIn />} />
         <Route path='sign-up' element={<SignUp />} />
       </Route>
-      {/*Redirect*/}
-      {/* <Redirect to='/marketing/specialty/404-error/' /> */}
+
+      {/* 導師、講師 */}
+      <Route path='/instructor' element={<DefaultLayout />}>
+        <Route index element={<InstructorDashboard />} />
+        <Route path='dashboard' element={<InstructorDashboard />} />
+      </Route>
+
+      {/* Page Not Found */}
       <Route path='*' element={<Error404 />} />
     </Routes>
   )
