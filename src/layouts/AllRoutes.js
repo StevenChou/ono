@@ -160,6 +160,7 @@ import LandingCourses from 'components/marketing/landings/landing-courses/Landin
 
 // Instructor Dashboard Pages
 import InstructorDashboard from 'components/marketing/instructor/Dashboard'
+import ProtectedRoute from 'components/marketing/pages/ProtectedRoute'
 // import InstructorMyCourses from 'components/marketing/instructor/MyCourses'
 // import InstructorReviews from 'components/marketing/instructor/Reviews'
 // import Earnings from 'components/marketing/instructor/Earnings'
@@ -202,7 +203,14 @@ function AllRoutes() {
       </Route>
 
       {/* 導師、講師 */}
-      <Route path='/instructor' element={<DefaultLayout />}>
+      <Route
+        path='/instructor'
+        element={
+          <ProtectedRoute>
+            <DefaultLayout />
+          </ProtectedRoute>
+        }
+      >
         <Route index element={<InstructorDashboard />} />
         <Route path='dashboard' element={<InstructorDashboard />} />
       </Route>
